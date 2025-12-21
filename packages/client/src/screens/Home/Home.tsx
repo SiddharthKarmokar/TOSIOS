@@ -12,9 +12,9 @@ import { NameField } from './components/NameField';
 import { NewGameField } from './components/NewGameField';
 import { RoomsList } from './components/RoomsList';
 
-interface HomeProps extends RouteComponentProps {}
+interface HomeScreenProps extends RouteComponentProps {}
 
-export function Home({ navigate }: HomeProps) {
+export function HomeScreen({ navigate }: HomeScreenProps) {
     const [rooms, setRooms] = useState<Array<RoomAvailable<any>>>([]);
     const clientRef = useRef<Client>();
     const intervalRef = useRef<NodeJS.Timeout | null>(null);

@@ -1,19 +1,18 @@
 import React, { CSSProperties } from 'react';
 import { Box, Button, Inline, Input, KeyboardKey, Space, Text, View } from '../../../../components';
-import { useAnalytics } from '../../../../hooks';
 import { ArrowLeft } from '../../../../icons';
 
-/**
- * A menu displaying important room actions and informations.
- */
-export function Menu(props: { onClose?: () => void; onLeave?: () => void }): React.ReactElement {
-    const { onClose, onLeave } = props;
+interface MenuProps {
+    onClose?: () => void;
+    onLeave?: () => void;
+}
+
+export function Menu({ onClose, onLeave }: MenuProps): React.ReactElement {
     const roomURL = window.location.href;
     const inputRef = React.useRef<HTMLInputElement>(null);
-    const analytics = useAnalytics();
 
     // Copy the room's link to the clipboard
-    const copyToClipboard = () => {
+    function copyToClipboard() {
         if (!inputRef.current) {
             return;
         }
@@ -21,12 +20,7 @@ export function Menu(props: { onClose?: () => void; onLeave?: () => void }): Rea
         inputRef.current.select();
         window.document.execCommand('copy');
         inputRef.current.blur();
-
-        analytics.track({
-            category: 'Game',
-            action: 'Share',
-        });
-    };
+    }
 
     return (
         <View fullscreen flex center backdrop style={styles.menu}>

@@ -1,8 +1,7 @@
-import { LocationProvider, Router, useLocation } from '@reach/router';
-import React, { useEffect } from 'react';
-import { useAnalytics } from './hooks';
-import { Home } from './screens/Home/Home';
-import { Match } from './screens/Match/Match';
+import { LocationProvider, Router } from '@reach/router';
+import React from 'react';
+import { HomeScreen } from './screens/Home/Home';
+import { GameScreen } from './screens/Match/Game';
 
 export default function App(): React.ReactElement {
     return (
@@ -13,23 +12,10 @@ export default function App(): React.ReactElement {
 }
 
 function RoutedApp(): React.ReactElement {
-    const { pathname } = useLocation();
-    const analytics = useAnalytics();
-
-    // Initialize analytics.
-    useEffect(() => {
-        analytics.init();
-    }, [analytics]);
-
-    // Listen to page changes.
-    useEffect(() => {
-        analytics.page(pathname);
-    }, [analytics, pathname]);
-
     return (
         <Router>
-            <Home default path="/" />
-            <Match path="/:roomId" />
+            <HomeScreen default path="/" />
+            <GameScreen path="/:roomId" />
         </Router>
     );
 }
