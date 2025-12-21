@@ -1,12 +1,12 @@
-import { Client, Room } from 'colyseus';
 import { Constants, Maths, Models, Types } from '@tosios/common';
+import { Client, Room } from 'colyseus';
 import { GameState } from '../states/GameState';
 
 export class GameRoom extends Room<GameState> {
     //
     // Lifecycle
     //
-    onCreate(options: Types.IRoomOptions) {
+    onCreate(options: Types.RoomOptions) {
         // Set max number of clients for this room
         this.maxClients = Maths.clamp(
             options.roomMaxPlayers || 0,
@@ -57,7 +57,7 @@ export class GameRoom extends Room<GameState> {
         });
     }
 
-    onJoin(client: Client, options: Types.IPlayerOptions) {
+    onJoin(client: Client, options: Types.PlayerOptions) {
         this.state.playerAdd(client.sessionId, options.playerName);
 
         console.log(`${new Date().toISOString()} [Join] id=${client.sessionId} player=${options.playerName}`);

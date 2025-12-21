@@ -1,9 +1,9 @@
 import React, { CSSProperties } from 'react';
-import { Space, Text, View } from '../../components';
+import { Space, Text, View } from '../../../../components';
 
-import { heartEmptyImage, heartFullImage } from '../../images';
-import { Container } from './';
 import { isMobile } from 'react-device-detect';
+import { heartEmptyImage, heartFullImage } from '../../../../images';
+import { Container } from './';
 
 const HEART_SIZE = isMobile ? 24 : 36;
 

@@ -1,9 +1,9 @@
-import { Inline, Text } from '../../components';
 import React, { CSSProperties } from 'react';
+import { isMobile } from 'react-device-detect';
+import { Inline, Text } from '../../../../components';
+import { Menu } from '../../../../icons';
 import { Container } from './';
 import { IconButton } from './IconButton';
-import { Menu } from '../../icons';
-import { isMobile } from 'react-device-detect';
 
 /**
  * Render the players count.

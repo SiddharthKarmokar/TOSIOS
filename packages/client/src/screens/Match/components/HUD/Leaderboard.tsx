@@ -1,3 +1,5 @@
+import { Models, Sorts, Types } from '@tosios/common';
+import React, { CSSProperties, Fragment } from 'react';
 import {
     Box,
     RoomFieldItem,
@@ -9,9 +11,7 @@ import {
     TableRow,
     Text,
     View,
-} from '../../components';
-import { Models, Sorts, Types } from '@tosios/common';
-import React, { CSSProperties, Fragment } from 'react';
+} from '../../../../components';
 
 /**
  * A leaderboard of all players.

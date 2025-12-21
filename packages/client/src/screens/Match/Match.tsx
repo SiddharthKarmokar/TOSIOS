@@ -1,14 +1,14 @@
-import { Client, Room } from 'colyseus.js';
-import { Constants, Maths, Models, Types } from '@tosios/common';
-import { HUD, HUDProps } from './HUD';
-import React, { Component, RefObject } from 'react';
 import { RouteComponentProps, navigate } from '@reach/router';
-import { Game } from '../game/Game';
+import { Constants, Maths, Models, Types } from '@tosios/common';
+import { Client, Room } from 'colyseus.js';
+import qs from 'querystringify';
+import React, { Component, RefObject } from 'react';
+import { isMobile } from 'react-device-detect';
 import { Helmet } from 'react-helmet';
 import ReactNipple from 'react-nipple';
-import { View } from '../components';
-import { isMobile } from 'react-device-detect';
-import qs from 'querystringify';
+import { View } from '../../components';
+import { Game } from '../../game/Game';
+import { HUD, HUDProps } from './components/HUD/HUD';
 
 interface IProps extends RouteComponentProps {
     roomId?: string;
@@ -18,7 +18,7 @@ interface IState {
     hud: HUDProps;
 }
 
-export default class Match extends Component<IProps, IState> {
+export class Match extends Component<IProps, IState> {
     private canvasRef: RefObject<HTMLDivElement>;
 
     private game: Game;
@@ -68,7 +68,7 @@ export default class Match extends Component<IProps, IState> {
         const { roomId = '', location: { search = '' } = {} } = this.props;
 
         const isNewRoom = roomId === 'new';
-        const parsedSearch = qs.parse(search) as Types.IRoomOptions;
+        const parsedSearch = qs.parse(search) as Types.RoomOptions;
 
         let options;
         if (isNewRoom) {

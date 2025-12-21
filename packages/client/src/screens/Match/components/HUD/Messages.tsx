@@ -1,8 +1,8 @@
-import { Inline, Space, Text, View } from '../../components';
-import React, { CSSProperties, Fragment } from 'react';
-import { Container } from '.';
 import { Models } from '@tosios/common';
+import React, { CSSProperties, Fragment } from 'react';
 import { isMobile } from 'react-device-detect';
+import { Container } from '.';
+import { Inline, Space, Text, View } from '../../../../components';
 
 /**
  * Render the messages from the server.

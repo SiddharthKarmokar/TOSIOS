@@ -1,7 +1,7 @@
 import React, { CSSProperties } from 'react';
-import { Container } from './';
-import { Text } from '../../components';
 import { isMobile } from 'react-device-detect';
+import { Text } from '../../../../components';
+import { Container } from './';
 
 const ANNOUNCE_LIFETIME = 3000;
 const ANNOUNCE_ANIM_TICK = 50;

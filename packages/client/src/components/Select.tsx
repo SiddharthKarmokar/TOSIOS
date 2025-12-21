@@ -13,14 +13,14 @@ const SELECT: CSSProperties = {
     textTransform: 'capitalize',
 };
 
-export interface IListItem {
+export interface ListItem {
     value: string | number;
     title: string;
 }
 
 export function Select(props: {
     value?: any;
-    values: IListItem[];
+    values: ListItem[];
     style?: CSSProperties;
     onChange?: (event: SyntheticEvent) => void;
 }): React.ReactElement {

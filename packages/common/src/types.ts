@@ -6,14 +6,14 @@ export type WallCollisionType = 'full' | 'none';
 /**
  * Represent the initial parameters of a Player
  */
-export interface IPlayerOptions {
+export interface PlayerOptions {
     playerName?: string;
 }
 
 /**
  * Represent the initial parameters of a Room
  */
-export interface IRoomOptions {
+export interface RoomOptions {
     playerName?: string;
     roomName: string;
     roomMap: string;

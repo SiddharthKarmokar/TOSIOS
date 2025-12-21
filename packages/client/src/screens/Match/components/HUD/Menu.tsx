@@ -1,7 +1,7 @@
-import { Box, Button, Inline, Input, KeyboardKey, Space, Text, View } from '../../components';
 import React, { CSSProperties } from 'react';
-import { ArrowLeft } from '../../icons';
-import { useAnalytics } from '../../hooks';
+import { Box, Button, Inline, Input, KeyboardKey, Space, Text, View } from '../../../../components';
+import { useAnalytics } from '../../../../hooks';
+import { ArrowLeft } from '../../../../icons';
 
 /**
  * A menu displaying important room actions and informations.

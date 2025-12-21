@@ -1,7 +1,7 @@
 import React, { CSSProperties } from 'react';
-import { View } from '../../components';
 import { isMobile } from 'react-device-detect';
-import { useHover } from '../../hooks';
+import { View } from '../../../../components';
+import { useHover } from '../../../../hooks';
 
 const VIEW_HEIGHT = 56;
 
