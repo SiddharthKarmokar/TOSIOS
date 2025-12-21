@@ -1,7 +1,7 @@
 import { LocationProvider, Router } from '@reach/router';
 import React from 'react';
+import { GameScreen } from './screens/Game/Game';
 import { HomeScreen } from './screens/Home/Home';
-import { GameScreen } from './screens/Match/Game';
 
 export default function App(): React.ReactElement {
     return (
