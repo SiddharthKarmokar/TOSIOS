@@ -19,7 +19,6 @@ export async function buildClient() {
         outfile: 'packages/client/public/script.js',
         define: {
             'process.env.NODE_ENV': `"${process.env.BUILD_MODE}"`,
-            'process.env.REACT_APP_GA_TRACKING_ID': `"${process.env.REACT_APP_GA_TRACKING_ID}"`,
         },
         assetNames: 'assets/[name]-[hash]',
         loader: {

@@ -2,8 +2,6 @@ FROM node:14.18.2-alpine
 
 WORKDIR /usr/src/app
 
-ARG REACT_APP_GA_TRACKING_ID
-
 # Dependencies
 COPY ./package.json .
 COPY ./yarn.lock .
