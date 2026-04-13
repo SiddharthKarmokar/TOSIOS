@@ -1,4 +1,4 @@
-FROM node:14.18.2-alpine
+FROM node:18-alpine
 
 WORKDIR /usr/src/app
 
@@ -8,7 +8,7 @@ COPY ./yarn.lock .
 COPY ./packages/client/package.json ./packages/client/
 COPY ./packages/common/package.json ./packages/common/
 COPY ./packages/server/package.json ./packages/server/
-RUN yarn
+RUN yarn install --ignore-engines
 
 # Files
 COPY . .
