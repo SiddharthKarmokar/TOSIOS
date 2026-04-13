@@ -4,7 +4,7 @@ import { Inline, View } from '../../../components';
 import { Text } from '../../../components/Text';
 import { GitHubIcon } from '../../../icons';
 
-const URL = 'https://github.com/halftheopposite/tosios';
+const URL = 'https://github.com/SiddharthKarmokar/surviveTheSemester';
 
 export function Footer(): React.ReactElement {
     return (
