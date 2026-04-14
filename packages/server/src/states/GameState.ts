@@ -2,6 +2,30 @@ import { ArraySchema, MapSchema, Schema, type } from '@colyseus/schema';
 import { Bullet, Game, Monster, Player, Prop } from '../entities';
 import { Collisions, Constants, Entities, Geometry, Maps, Maths, Models, Tiled, Types } from '@tosios/common';
 
+// ---------------------------------------------------------------------------
+// Backend notification
+// ---------------------------------------------------------------------------
+
+const BACKEND_URL = process.env.BACKEND_URL || "https://localhost:3000";
+
+async function notifyBackend(payload: any) {
+  try {
+    await fetch(`${BACKEND_URL}/api/games/campusFighter/game-end`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        // Inject secret if available because backend explicitly rejects without it
+        ...(process.env.GAME_SERVER_SECRET ? { "x-game-server-secret": process.env.GAME_SERVER_SECRET } : {})
+      },
+      body: JSON.stringify(payload)
+    });
+  } catch (err) {
+    console.error("Rating update failed:", err);
+  }
+}
+
+// ---------------------------------------------------------------------------
+
 export class GameState extends Schema {
     @type(Game)
     public game: Game;
@@ -27,6 +51,12 @@ export class GameState extends Schema {
     private actions: Models.ActionJSON[] = [];
 
     private onMessage: (message: Models.MessageJSON) => void;
+
+    /**
+     * Guards against handleGameEnd firing more than once per game session.
+     * Reset to false whenever a new game starts.
+     */
+    private gameEndNotified: boolean = false;
 
     //
     // Init
@@ -129,6 +159,9 @@ export class GameState extends Schema {
             this.setPlayersTeamsRandomly();
         }
 
+        // Allow the next game to send a rating update
+        this.gameEndNotified = false;
+
         this.setPlayersPositionRandomly();
         this.setPlayersActive(true);
         this.propsAdd(Constants.FLASKS_COUNT);
@@ -144,6 +177,25 @@ export class GameState extends Schema {
     private handleGameEnd = (message?: Models.MessageJSON) => {
         if (message) {
             this.onMessage(message);
+        }
+
+        if (!this.gameEndNotified) {
+            this.gameEndNotified = true;
+
+            const payload = {
+                results: Array.from(this.players.values())
+                    .filter(p => p.userId) // only update ratings for authenticated users with a MongoDB _id
+                    .map(p => ({
+                        userId: p.userId,
+                        kills: p.kills,
+                        isAlive: p.isAlive
+                    }))
+            };
+
+            // Only notify if there are actual registered players
+            if (payload.results.length > 0) {
+                notifyBackend(payload);
+            }
         }
 
         this.propsClear();
@@ -191,7 +243,7 @@ export class GameState extends Schema {
     //
     // Players: single
     //
-    playerAdd(id: string, name: string) {
+    playerAdd(id: string, name: string, userId?: string) {
         const spawner = this.getSpawnerRandomly();
         const player = new Player(
             id,
@@ -201,6 +253,7 @@ export class GameState extends Schema {
             0,
             Constants.PLAYER_MAX_LIVES,
             name || id,
+            userId,
         );
 
         // Add the user to the "red" team by default

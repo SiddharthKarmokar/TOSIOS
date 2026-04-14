@@ -33,6 +33,9 @@ export class Player extends Circle {
     // This property is needed to limit shooting rate
     public lastShootAt: number;
 
+    // Matches the MongoDB _id for ratings
+    public userId: string;
+
     // Init
     constructor(
         playerId: string,
@@ -42,10 +45,12 @@ export class Player extends Circle {
         lives: number,
         maxLives: number,
         name: string,
+        userId: string,
         team?: Types.Teams,
     ) {
         super(x, y, radius);
         this.playerId = playerId;
+        this.userId = userId;
         this.lives = lives;
         this.maxLives = maxLives;
         this.name = validateName(name);

@@ -8,6 +8,8 @@ export type WallCollisionType = 'full' | 'none';
  */
 export interface PlayerOptions {
     playerName?: string;
+    /** MongoDB _id of the authenticated user — passed by the client on join */
+    userId?: string;
 }
 
 /**
